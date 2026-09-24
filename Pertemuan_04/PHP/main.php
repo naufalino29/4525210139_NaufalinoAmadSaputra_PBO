@@ -7,6 +7,8 @@ require_once __DIR__ . '/Pegawai.php';
 $daftar = [
     new PegawaiTetap('198701012010', 'Ani Lestari', 6_000_000, 15),
     new PegawaiKontrak('K-2024-007', 'Budi Santoso', 5_000_000, 12),
+    new Dosen('1982076858757', 'Dr. Citra Dewi', 7_000_000, 10, 2_500_000),
+    new PegawaiHarian('H-2025-021', 'Dedi Pratama', 50_000, 22),
 ];
 
 echo '=== Daftar Gaji ===', PHP_EOL;

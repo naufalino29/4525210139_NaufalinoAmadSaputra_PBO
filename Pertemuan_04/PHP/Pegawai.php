@@ -14,12 +14,15 @@ abstract class Pegawai
         protected readonly float  $gajiPokok,
     ) {
         // TODO 1: tolak gaji pokok negatif.
+        if ($gajiPokok < 0) {
+            throw new InvalidArgumentException('Gaji pokok tidak boleh negatif: ' . $gajiPokok);
+        }
     }
 
     /** TODO 2: kembalikan gaji pokok apa adanya. */
     public function hitungGaji(): float
     {
-        return 0;   // ganti
+        return $this-> gajiPokok;   // ganti
     }
 
     abstract public function jenis(): string;
@@ -55,19 +58,20 @@ class PegawaiTetap extends Pegawai
      */
     public function hitungGaji(): float
     {
-        $gajiPokok = parent::hitungGaji();
-
-        $persenTunjangan = $gajiPokok * self::TUNJANGAN_PER_TAHUN;
-
-        if ($persenTunjangan > self ::TUNJANGAN_MAKSIMUM){
-            $persenTunjangan = self::TUNJANGAN_MAKSIMUM;
-        }
-
-        return $gajiPokok + ($gajiPokok * $persenTunjangan);   // ganti
+        $persen = min(
+            $this->masaKerjaTahun * self::TUNJANGAN_PER_TAHUN,
+            self::TUNJANGAN_MAKSIMUM
+        );
+        $dasar = parent::hitungGaji();
+ 
+        return $dasar + $dasar * $persen;
     }
-
-    public function jenis(): string { return 'TETAP'; }
+ 
+    public function jenis(): string { 
+        return 'TETAP'; 
+        }
 }
+
 
 class PegawaiKontrak extends Pegawai
 {
@@ -83,13 +87,53 @@ class PegawaiKontrak extends Pegawai
     public function getBulanKontrak(): int { return $this->bulanKontrak; }
 }
 
-// TODO Langkah 4: buat kelas Dosen (turunan PegawaiTetap, punya tunjangan fungsional)
-//                 dan PegawaiHarian (gaji per hari kerja) di bawah ini.
 
-class Dosen extends PegawaiTetap{
-    private const TUNJANGAN_FUNGSIONAL = 0.10;
-    public function __construct(string $nip, string $nama, float $gajiPokok, int $masaKerjaTahun)
-    {
-        return parent::__construct($nip, $nama, $gajiPokok, $masaKerjaTahun);
+class Dosen extends PegawaiTetap
+{
+    public function __construct(
+        string $nip, string $nama, float $gajiPokok, int $masaKerjaTahun,
+        private readonly float $tunjanganFungsional,
+    ) {
+        parent::__construct($nip, $nama, $gajiPokok, $masaKerjaTahun);
+ 
+        if ($tunjanganFungsional < 0) {
+            throw new InvalidArgumentException('Tunjangan fungsional tidak boleh negatif: ' . $tunjanganFungsional);
+        }
     }
+ 
+    #[\Override]
+    public function hitungGaji(): float
+    {
+        return parent::hitungGaji() + $this->tunjanganFungsional;
+    }
+ 
+    #[\Override]
+    public function jenis(): string { return 'DOSEN'; }
+ 
+    public function getTunjanganFungsional(): float { return $this->tunjanganFungsional; }
 }
+ 
+class PegawaiHarian extends Pegawai
+{
+    public function __construct(
+        string $nip, string $nama, float $upahPerHari,
+        private readonly int $hariKerja,
+    ) {
+        parent::__construct($nip, $nama, $upahPerHari);
+ 
+        if ($hariKerja < 0) {
+            throw new InvalidArgumentException('Hari kerja tidak boleh negatif: ' . $hariKerja);
+        }
+    }
+ 
+    #[\Override]
+    public function hitungGaji(): float
+    {
+        return parent::hitungGaji() * $this->hariKerja;
+    }
+ 
+    public function jenis(): string { return 'HARIAN'; }
+ 
+    public function getHariKerja(): int { return $this->hariKerja; }
+}
+ 

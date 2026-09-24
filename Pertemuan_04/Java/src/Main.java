@@ -6,8 +6,8 @@ public class Main {
         Pegawai[] daftar = {
             new PegawaiTetap("198701012010", "Ani Lestari",  6_000_000, 15),
             new PegawaiKontrak("K-2024-007",  "Budi Santoso", 5_000_000, 12),
-            new PegawaiHarian("198701012010,", "Naufalino Ahmad", 200_000, 30),
-            new Dosen("4524210139", "Naufalino Ahmad", 8_000_000, 10, 2_000_000)
+            new PegawaiHarian("4525210139,", "Naufalino Ahmad", 200_000, 30),
+            new Dosen("198701076781", "Beni Santoso", 8_000_000, 10, 2_000_000)
 
         };
 
