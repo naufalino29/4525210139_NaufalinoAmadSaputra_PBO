@@ -23,7 +23,7 @@ public class PegawaiTetap extends Pegawai {
      */
     @Override
     public double hitungGaji() {
-        return 0;
+        return super.hitungGaji() + Math.min(masaKerjaTahun * TUNJANGAN_PER_TAHUN, TUNJANGAN_MAKSIMUM) * super.hitungGaji();
     }
 
     @Override

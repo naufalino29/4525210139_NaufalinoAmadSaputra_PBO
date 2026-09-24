@@ -55,6 +55,7 @@ class PegawaiTetap extends Pegawai
      */
     public function hitungGaji(): float
     {
+        $gajiPokok = parent::hitungGaji();
         return 0;   // ganti
     }
 
