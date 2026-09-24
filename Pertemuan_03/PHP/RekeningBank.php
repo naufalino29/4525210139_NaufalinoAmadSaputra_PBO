@@ -9,8 +9,13 @@ class RekeningBank
 {
     // TODO 1: ganti angka ajaib berikut menjadi konstanta bernama.
     //   bunga tahunan 0.025 · biaya admin 5000 · batas penarikan 5000000
+    public const float bunga_tahunan = 0.025;
+    public const float biaya_admin = 5000;
+    public const float batas_penarikan = 5000000;
+    public const float saldo_minimum =0;
 
     // TODO 2: deklarasikan properti statis penghitung jumlah rekening.
+    private static int $jumlahrekening =0;
 
     private float $saldo;
 
@@ -22,9 +27,16 @@ class RekeningBank
     public function __construct(
         private readonly string $nomor,
         private readonly string $pemilik,
-        float $saldoAwal = 0,
+        float $saldoAwal = self::saldo_minimum,
     ) {
+        if (trim($nomor)=='') {
+            throw new InvalidArgumentException('Nomor rekening tidak boleh kosong',);            
+        }
+        if ($saldoAwal < self::saldo_minimum){
+            throw new InvalidArgumentException('Saldo awal tidak boleh negatif');
+        }
         $this->saldo = $saldoAwal;
+        self ::$jumlahrekening++;
     }
 
     /**
@@ -34,34 +46,49 @@ class RekeningBank
      */
     public static function rekeningPelajar(string $nomor, string $pemilik): static
     {
-        throw new RuntimeException('TODO 5 belum dikerjakan');
+        return new static($nomor, $pemilik);
     }
 
     public function setor(float $jumlah): void
     {
         // TODO 6
+        if ($jumlah <= 0){
+            throw new InvalidArgumentException('Jumlah setoran harus lebih dari nol');
+        }
+        $this ->saldo += $jumlah;
     }
 
     public function tarik(float $jumlah): void
     {
         // TODO 7: tolak <= 0, tolak melebihi saldo, tolak melebihi batas sekali tarik.
+        if ($jumlah <= 0) {
+            throw new InvalidArgumentException('Jumlah penarikan harus lebih dari nol');
+        }
+        if ($jumlah > $this->saldo) {
+            throw new InvalidArgumentException('Saldo anda tidak cukup');
+        }
+        if ($jumlah > self :: batas_penarikan) {
+            throw new InvalidArgumentException('Jumlah penarikan melebihi batas sekali tarik');
+        }
+        $this->saldo -= $jumlah;
     }
 
     /** TODO 8 */
     public function potongBiayaAdmin(): void
     {
+        $this->saldo = max (self :: saldo_minimum, $this->saldo - self :: biaya_admin );
     }
 
     /** TODO 9 */
     public static function getJumlahRekening(): int
     {
-        return -1;   // ganti
+        return self :: $jumlahrekening;   // ganti
     }
 
     /** TODO 10 */
     public static function bungaSetahun(float $pokok): float
     {
-        return 0;   // ganti
+        return $pokok * self :: bunga_tahunan;   // ganti
     }
 
     public function getSaldo(): float { return $this->saldo; }
