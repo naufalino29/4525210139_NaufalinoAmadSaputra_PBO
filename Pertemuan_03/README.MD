@@ -5,7 +5,7 @@ NPM       : 4525210139 <br>
 Pertemuan : Pertemuan ke 2 <br>
 
 ## Hasil Running JAVA
-![Hasil Output](Dokumentasi/Java_P3.PNG)
+![Hasil Output](Dokumentasi_P3/Java_P3.png)
 
 ## Hasil Running PHP
-![Hasil Output](Dokumentasi/PHP_P3.PNG)
+![Hasil Output](Dokumentasi_P3/PHP_P3.png)
