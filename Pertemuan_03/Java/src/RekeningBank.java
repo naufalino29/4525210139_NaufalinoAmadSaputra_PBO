@@ -61,6 +61,7 @@ public class RekeningBank {
         if (jumlah <= SALDO_MINIMUM){
             throw new IllegalArgumentException("Jumlah Storan harus lebih dari noll");
         }
+        saldo += jumlah;
     }
 
     public void tarik(double jumlah) {
@@ -79,6 +80,7 @@ public class RekeningBank {
 
     /** TODO 8: kurangi saldo sebesar biaya administrasi, tetapi jangan sampai negatif. */
     public void potongBiayaAdmin() {
+        saldo = Math.max(SALDO_MINIMUM, saldo - biaya_administrasi);
     }
 
     /** TODO 9: method statis — kembalikan jumlah rekening yang pernah dibuat. */
@@ -92,7 +94,7 @@ public class RekeningBank {
      *          Itulah alasan ia pantas menjadi static.
      */
     public static double bungaSetahun(double pokok) {
-        return 0;   // ganti
+        return pokok * bunga_tahunan;   // ganti
     }
 
     public double getSaldo()  { return saldo; }
