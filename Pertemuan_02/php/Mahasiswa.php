@@ -29,9 +29,15 @@ class Mahasiswa
     ) {
         // TODO 2: tolak NIM yang kosong (setelah di-trim).
         //         Lemparkan InvalidArgumentException dengan pesan yang jelas.
-
+        if (trim($nim) === '') {
+            throw new InvalidArgumentException('NIM tidak boleh kosong.');
+        }
         // TODO 3: tolak setiap komponen nilai di luar rentang 0-100
         //         menggunakan method pembantu di bawah.
+        self::pastikanNilaiSah('Nilai tugas', $nilaiTugas);
+        self::pastikanNilaiSah('Nilai UTS', $nilaiUts);
+        self::pastikanNilaiSah('Nilai UAS', $nilaiUas);
+
     }
 
     /**
@@ -40,23 +46,44 @@ class Mahasiswa
     private static function pastikanNilaiSah(string $namaKomponen, float $nilai): void
     {
         // TODO
+        if (!($nilai >= self::NILAI_MIN && $nilai <= self::NILAI_MAX)) {
+            throw new InvalidArgumentException(sprintf(
+                '%s harus dalam rentang %d-%d, diterima: %s.',
+                $namaKomponen,
+                (int) self::NILAI_MIN,
+                (int) self::NILAI_MAX,
+                (string) $nilai
+            ));
+        }
     }
 
     /** TODO 5: hitung nilai akhir memakai konstanta bobot. */
     public function nilaiAkhir(): float
     {
-        return 0;   // ganti
+        return $this->nilaiTugas * self::BOBOT_TUGAS
+             + $this->nilaiUts   * self::BOBOT_UTS
+             + $this->nilaiUas   * self::BOBOT_UAS;   // ganti
     }
 
     /** TODO 6: kembalikan huruf mutu. Petunjuk: match (true) { ... } */
     public function hurufMutu(): string
     {
-        return '?';   // ganti
+        $akhir = $this->nilaiAkhir();
+        return match (true) {
+            $akhir >= 85 => 'A',
+            $akhir >= 70 => 'B',
+            $akhir >= 55 => 'C',
+            $akhir >= 40 => 'D',
+            default      => 'E',
+        };   // ganti
     }
 
     // TODO 7: sediakan getter seperlunya. JANGAN membuat setNim().
     public function getNim(): string  { return $this->nim; }
     public function getNama(): string { return $this->nama; }
+    public function getNilaiTugas(): float  { return $this->nilaiTugas; }
+    public function getNilaiUts(): float    { return $this->nilaiUts; }
+    public function getNilaiUas(): float    { return $this->nilaiUas; }
 
     public function __toString(): string
     {

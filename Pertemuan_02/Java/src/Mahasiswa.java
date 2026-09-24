@@ -33,9 +33,17 @@ public class Mahasiswa {
         //         Lemparkan IllegalArgumentException dengan pesan yang menyebut
         //         APA yang salah — bukan sekadar "Error".
 
+         if (nim == null || nim.isBlank()) {
+            throw new IllegalArgumentException("NIM tidak boleh kosong atau null");
+         }
         // TODO 3: tolak setiap komponen nilai yang di luar rentang 0-100.
         //         Petunjuk: buat satu method privat pembantu agar tidak menulis
         //         pemeriksaan yang sama tiga kali.
+
+        pastikanNilaiSah("tugas", nilaiTugas);
+        pastikanNilaiSah("UTS", nilaiUts);
+        pastikanNilaiSah("UAS", nilaiUas);
+
 
         this.nim = nim;
         this.nama = nama;
@@ -47,13 +55,19 @@ public class Mahasiswa {
     // TODO 4: buat method privat pembantu untuk memvalidasi satu komponen nilai.
     //         Tanda tangan yang disarankan:
     //         private static void pastikanNilaiSah(String namaKomponen, double nilai)
-
+    private static void pastikanNilaiSah(String namaKomponen, double nilai) {
+        if (nilai < NILAI_MIN || nilai > NILAI_MAX) {
+            throw new IllegalArgumentException(
+                "Nilai " + namaKomponen + " harus berada dalam rentang "
+                    + NILAI_MIN + " sampai " + NILAI_MAX + ", diberikan: " + nilai);
+        }
+    }
 
     /**
      * TODO 5: hitung nilai akhir memakai konstanta bobot di atas.
      */
     public double nilaiAkhir() {
-        return 0;   // ganti
+        return BOBOT_TUGAS * nilaiTugas + BOBOT_UTS * nilaiUts + BOBOT_UAS * nilaiUas;   // ganti
     }
 
     /**
@@ -61,7 +75,12 @@ public class Mahasiswa {
      *   >= 80 -> "A"   >= 70 -> "B"   >= 60 -> "C"   >= 50 -> "D"   selain itu "E"
      */
     public String hurufMutu() {
-        return "?";   // ganti
+        double akhir = nilaiAkhir();
+        if (akhir >= 80) return "A";
+        if (akhir >= 70) return "B";
+        if (akhir >= 60) return "C";
+        if (akhir >= 50) return "D";
+        return "E";   // ganti
     }
 
     // ── Getter ────────────────────────────────────────────────
@@ -70,6 +89,7 @@ public class Mahasiswa {
 
     public String getNim()  { return nim; }
     public String getNama() { return nama; }
+    public double getNilaiAkhir() { return nilaiAkhir(); }
 
     @Override
     public String toString() {
