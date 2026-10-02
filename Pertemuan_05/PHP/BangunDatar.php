@@ -24,7 +24,7 @@ class Lingkaran extends BangunDatar
         parent::__construct('Lingkaran');
         // TODO 1: tolak jari-jari <= 0.
         if ($jariJari <= 0) {
-            throw new Error("Jari-Jari tidak boleh Noll atau negatif");
+            throw new InvalidArgumentException("Jari-Jari tidak boleh Noll atau negatif");
         }
     }
 
@@ -42,7 +42,7 @@ class Persegi extends BangunDatar
         parent::__construct('Persegi');
         // TODO 1: tolak sisi <= 0.
         if ($sisi <=0){
-            throw new Error('Sisi tidak boleh Noll atau negatif');
+            throw new InvalidArgumentException('Sisi tidak boleh Noll atau negatif');
         }
     }
 
@@ -65,7 +65,7 @@ class Segitiga extends BangunDatar
         $sisia + $sisib <= $sisic || 
         $sisia + $sisic <= $sisib ||
         $sisib + $sisic <= $sisia){
-            throw new Error('Ketiga sisi tidak membentuk segitiga');
+            throw new InvalidArgumentException('Ketiga sisi tidak membentuk segitiga');
 
         }
         
@@ -76,3 +76,20 @@ class Segitiga extends BangunDatar
     public function keliling(): float { return $this->sisia + $this->sisib + $this->sisic;}
 }
 // TODO Langkah 4: buat kelas Trapesium.
+class Trapesium extends BangunDatar{
+
+    public function __construct(
+        private readonly float $sisiA,
+        private readonly float $sisiB,
+        private readonly float $sisiC,
+        private readonly float $sisiD,
+        private readonly float $tinggi){
+
+        parent::__construct('Trapesium');
+        if ($sisiA <=0 || $sisiB <= 0 || $sisiC <=0 || $sisiD <= 0|| $tinggi <=0){
+            throw new InvalidArgumentException ('sisi dan tinggi tidak boleh noll atau negatif');
+        }
+        }
+    public function luas (): float {return 0.5 * ($this->sisiA + $this->sisiB) * $this->tinggi;}
+    public function keliling (): float {return $this->sisiA + $this->sisiB + $this->sisiC + $this->sisiD;}
+}
