@@ -14,7 +14,7 @@
 
 ### Penjelasan Kode
 
-> Program uji yang menggunakan daftar objek Movable, mengisi bahan bakar melalui kontrak Fuelable, dan menampilkan perilaku enum TipeBahanBakar. Pemanggilan isiPenuh menjadi contoh kesalahan tipe karena Sepeda tidak mengimplementasikan Fuelable.
+> File ini berfungsi sebagai program utama untuk menguji seluruh kelas lain. Objek-objek yang dapat bergerak dikumpulkan dalam satu daftar bertipe Movable. Pengisian bahan bakar dilakukan lewat tipe Fuelable.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -28,7 +28,7 @@
 
 <b> 1.2. file `Kendaraan.java` </b>
 
-> Kelas abstrak yang menyimpan data umum kendaraan, menyediakan perilaku bersama, dan mewajibkan kelas turunan mendefinisikan jumlah roda.
+> Kendaraan adalah abstract class yang menjadi induk bagi semua jenis kendaraan. Kelas ini menyimpan atribut dan perilaku yang dimiliki semua kendaraan, serta mendeklarasikan method abstrak untuk jumlah roda yang wajib diimplementasikan oleh setiap kelas turunannya.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -42,7 +42,7 @@
 
 <b> 1.3. file `Mobil.java` </b>
 
-> Kelas turunan Kendaraan yang mengimplementasikan Movable dan Fuelable, menyediakan informasi kapasitas tangki serta tipe bahan bakar.
+> Mobil merupakan turunan dari Kendaraan yang menerapkan dua interface sekaligus, yaitu Movable dan Fuelable. Karena itu Mobil mampu bergerak dan diisi bahan bakar, serta menyediakan data kapasitas tangki dan jenis bahan bakar yang digunakan.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -56,7 +56,7 @@
 
 <b> 1.4. file `Sepeda.java` </b>
 
-> Kelas turunan Kendaraan yang mengimplementasikan Movable. Sepeda dapat bergerak, tetapi tidak memenuhi kontrak Fuelable.
+> Sepeda juga turunan dari Kendaraan, tetapi hanya mengimplementasikan Movable. Kelas ini bisa bergerak, namun tidak memiliki kemampuan diisi bahan bakar karena tidak menerapkan Fuelable.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -64,7 +64,7 @@
 
 <b> 1.5. file `Movable.java` </b>
 
-> Interface yang mendefinisikan kontrak bergerak dan kecepatan maksimum, termasuk default method untuk ringkasan gerak.
+> Movable adalah interface yang menetapkan kemampuan bergerak beserta kecepatan maksimum yang harus dimiliki kelas pengimplementasinya. Interface ini juga memuat default method yang menghasilkan ringkasan informasi gerak tanpa perlu ditulis ulang di tiap kelas.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -78,7 +78,7 @@
 
 <b> 1.6. file `Fuelable.java` </b>
 
-> Interface yang mendefinisikan kontrak pengisian bahan bakar, kapasitas tangki, dan tipe bahan bakar.
+> Fuelable adalah interface yang menetapkan aturan bagi objek yang dapat diisi bahan bakar, meliputi proses pengisian, kapasitas tangki, dan jenis bahan bakar yang dipakai.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -87,7 +87,7 @@
 
 <b> 1.7. file `TipeBahanBakar.java` </b>
 
-> Enum berisi pilihan bahan bakar yang valid beserta label, harga per satuan, perhitungan biaya pengisian, dan informasi ramah lingkungan.
+> TipeBahanBakar adalah enum yang membatasi pilihan bahan bakar hanya pada nilai yang telah ditentukan. Setiap pilihan memiliki label, harga per satuan, method untuk menghitung biaya pengisian, dan keterangan apakah bahan bakar tersebut ramah lingkungan.
 
 **Bukti Eksekusi (Screenshot):**
 
@@ -108,7 +108,7 @@
 
 **Penjelasan Kode**
 
-> Program PHP yang menjalankan objek kendaraan, mengisi bahan bakar melalui tipe Fuelable, menguji enum, dan memperlihatkan penggunaan trait.
+> File ini adalah program utama versi PHP. Di dalamnya dibuat objek-objek kendaraan, pengisian bahan bakar dilakukan melalui tipe Fuelable, nilai enum diuji, dan penggunaan trait diperlihatkan lewat fitur pencatatan log.
 
 ** Bukti Eksekusi (Screenshot): **
 
@@ -125,7 +125,7 @@
 
 **Penjelasan Kode**
 
-> Berisi interface Movable dan Fuelable, enum TipeBahanBakar, serta trait Loggable untuk berbagi perilaku log. File ini juga menjadi tempat definisi abstraksi dan kelas pendukung PHP.
+> File ini menghimpun semua komponen abstraksi dalam PHP: interface Movable dan Fuelable, enum TipeBahanBakar, serta trait Loggable yang memungkinkan beberapa kelas memakai perilaku pencatatan log yang sama. Kelas-kelas pendukung juga didefinisikan di file ini.
 
 ** Bukti Eksekusi (Screenshot): **
 
@@ -143,4 +143,4 @@
 
 ## Kesimpulan
 
->Abstract class digunakan untuk berbagi keadaan dan perilaku dasar sekaligus memaksa kelas turunan melengkapi method abstrak. Interface mendefinisikan kemampuan yang harus dimiliki kelas, sedangkan enum membatasi pilihan nilai yang sah. Pemisahan kontrak membuat fungsi seperti isiPenuh hanya menerima objek yang benar-benar mendukung pengisian bahan bakar.
+> Dari praktikum ini dapat disimpulkan bahwa abstract class, interface, dan enum memiliki peran yang saling melengkapi. Abstract class cocok dipakai sebagai kerangka dasar, karena dapat menyimpan atribut dan perilaku bersama sekaligus mewajibkan kelas turunan mengimplementasikan method abstrak, seperti jumlah roda pada Kendaraan. Interface digunakan untuk menetapkan kemampuan tertentu yang dapat dimiliki oleh kelas yang tidak berhubungan, misalnya Movable dan Fuelable, sehingga satu kelas dapat memenuhi beberapa kontrak sekaligus. Enum membatasi suatu nilai hanya pada pilihan yang sah, seperti TipeBahanBakar, sehingga kesalahan input dapat dihindari sejak awal. Dengan memisahkan kontrak ke dalam interface yang kecil, program menjadi lebih aman dan terstruktur: fungsi isiPenuh hanya menerima objek yang benar-benar mendukung pengisian bahan bakar, sehingga Sepeda otomatis ditolak oleh compiler. Pada implementasi PHP, konsep yang sama dapat diterapkan, dan trait menambahkan cara berbagi perilaku antar kelas tanpa pewarisan.
