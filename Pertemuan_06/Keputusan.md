@@ -1,8 +1,8 @@
 # Mengapa Penolakan Saat Kompilasi Menguntungkan?
 
-**Type Safety:** Menangkap kesalahan logika atau tipe data lebih awal sebelum program dijalankan (runtime). <br>
-**Mencegah Crash:** Menghindari kegagalan program di lingkungan produksi (seperti ClassCastException). <br>
-**Feedback Cepat:** Developer langsung mengetahui batas kemampuan suatu objek tanpa perlu melakukan manual testing.
+<li> <b>Cepat diperbaiki.</b> Compiler langsung menunjuk baris yang salah, jadi kita tidak perlu mencari bug sendiri.
+<li> <b>Tidak perlu cek manual.</b> Tanpa tipe Fuelable, kita harus menulis if (x instanceof Sepeda).
+<li> <b>Aturannya jelas dari tipenya.</b> isiPenuh(Fuelable) sudah memberi tahu bahwa hanya benda yang bisa diisi bahan bakar yang boleh masuk.
 
 ## Output
 
