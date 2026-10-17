@@ -26,8 +26,9 @@ public class Jurusan {
      */
     public void daftarkan(Mahasiswa m) {
         if (m == null){
-            throw new IllegalAccessError ("Mahasiswa tidak boleh kosong");
+            throw new  IllegalAccessError("Mahasiswa ga boleh kosong");
         }
+        this.mahasiswa.add(m);
     }
 
     /** TODO 2: lepaskan dari jurusan ini. Objeknya TETAP HIDUP di luar sana. */

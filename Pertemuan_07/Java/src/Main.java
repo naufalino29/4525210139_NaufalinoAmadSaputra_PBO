@@ -47,12 +47,14 @@ public class Main {
         System.out.println("  tetapi Mahasiswa tetap ada di luar Jurusan.");
 
         System.out.println();
-        System.out.println("========== Perpustakaan Teknik ==========");
+        System.out.println("=== Perpustakaan Teknik ===");
         PerpustakaanService perpus = new PerpustakaanService();
-        perpus.tambahKoleksi(new Buku("PBO", judul"Pemrograman Berorientasi Objek", penulis"A. W. Pribadi", jumlahEksemplar 3));
-        buku hasilPencarian = perpus.cariKoleksi("PBO-01");
+        perpus.tambahKoleksi(new Buku("PBO-001", "Pemrograman Berorientasi Objek", "A. W. Pribadi", 3));
+        perpus.tambahKoleksi(new Buku("PBO-002", "Struktur Data", "B. C. Sitorus", 4));
+        Buku hasilCari = perpus.cariKoleksi("PBO-001");
 
-        System.out.println("Hasil pencarian buku anda : " + hasilPencarian);
-        perpus.pinjam("IT-4554", nomorInduk);
+        System.out.println("Hasil pencarian buku anda: " + hasilCari);
+        perpus.pinjam("IT-4554", "PBO-001");
+        perpus.kembalikan( "IT-4554", "PBO-001");
     }
 }

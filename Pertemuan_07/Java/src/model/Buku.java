@@ -23,8 +23,9 @@ public class Buku {
 
     public Buku(String nomorInduk, String judul, String penulis, int jumlahEksemplar) {
         // TODO 1: tolak jumlah eksemplar negatif.
-        if (jumlahEksemplar < 0){
+        if (jumlahEksemplar < 0) {
             throw new IllegalAccessError("Jumlah Eksemplar tidak boleh negatif!");
+            
         }
         this.nomorInduk = nomorInduk;
         this.judul = judul;
@@ -57,8 +58,8 @@ public class Buku {
     /** TODO 4: kurangi stok; tolak bila sudah nol. */
     public void kurangiStok() {
         if (jumlahEksemplar == 0){
-            System.out.println("Stok Eksempelar = 0");
-            return;
+            System.out.println("Stok eksampler = 0");
+            return ;
         }
         this.jumlahEksemplar--;
     }
