@@ -95,12 +95,14 @@
 **Bukti Eksekusi (Screenshot):**
  
 <li> <b>Before </b>
+
 ![Bukti Eksekusi](Dokumentasi/RelasiPHPBefore.png)
  
 <li> <b>After </b>
+
 ![Bukti Eksekusi](Dokumentasi/relasiPHPAfter.png)
  
  
 ## Kesimpulan
  
-> Dapat disimpulkan bahwa komposisi dan agregasi sama-sama menyatakan hubungan "memiliki", tetapi berbeda pada nasib objek bagiannya. Pada komposisi, seperti Buku dan Bab, objek bagian dibuat di dalam induk, constructor-nya dibatasi, dan getter mengembalikan salinan tak-berubah, sehingga Bab tidak bermakna tanpa Buku dan ikut hilang bersamanya. Pada agregasi, seperti Jurusan dan Mahasiswa atau PerpustakaanService dan Buku, objek bagian dibuat di luar lalu diserahkan ke induk, sehingga tetap hidup walaupun dilepas atau induknya hilang. Perbedaan itu juga tercermin pada notasi UML: wajik penuh (`*--`) untuk komposisi dan wajik kosong (`o--`) untuk agregasi, dilengkapi multiplicity seperti `1` ke `0..*` untuk menyatakan jumlah objek yang boleh terhubung. Di PHP, karena tidak ada nested class, komposisi harus dijaga lewat konvensi dan properti readonly.
+> Dapat disimpulkan bahwa komposisi dan agregasi sama-sama menyatakan hubungan "memiliki", tetapi berbeda pada nasib objek bagiannya. Pada komposisi, seperti Buku dan Bab, objek bagian dibuat di dalam induk, constructor-nya dibatasi, dan getter mengembalikan salinan tak-berubah, sehingga Bab tidak bermakna tanpa Buku dan ikut hilang bersamanya. Pada agregasi, seperti Jurusan dan Mahasiswa atau PerpustakaanService dan Buku, objek bagian dibuat di luar lalu diserahkan ke induk, sehingga tetap hidup walaupun dilepas atau induknya hilang.
