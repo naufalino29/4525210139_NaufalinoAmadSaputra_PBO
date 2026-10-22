@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 /**
  * Sesi 4 — hierarki pegawai (PHP).
  * Seluruh hierarki ditaruh dalam satu berkas agar mudah dibaca berdampingan
